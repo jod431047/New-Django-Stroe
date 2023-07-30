@@ -39,6 +39,7 @@ class ProductImages(models.Model):
 class Brand(models.Model):
     name = models.CharField(_('name'),max_length=100)
     image = models.ImageField(_('image'),upload_to='brand')
+    slug = models.SlugField(null=True,blank=True)
     
     def __str__(self):
         return self.name
@@ -46,7 +47,7 @@ class Brand(models.Model):
     def save(self, *args ,**kwargs):
         self.slug = slugify (self.name)
         
-        super(Product,self).save( *args ,**kwargs)
+        super(Brand,self).save( *args ,**kwargs)
     
   
 
