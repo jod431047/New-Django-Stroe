@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from taggit.managers import TaggableManager
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 
 FLAG_TYPES = (
     ('New','New'),
@@ -23,6 +24,7 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand' ,verbose_name=_('brand'), on_delete=models.CASCADE,related_name='product_brand')
     flag = models.CharField(_('flag'),max_length=20,choices=FLAG_TYPES)
     tags = TaggableManager()
+    slug = models.SlugField(null=True,blank=True)
     
     def __str__(self):
         return self.name
@@ -40,6 +42,11 @@ class Brand(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def save(self, *args ,**kwargs):
+        self.slug = slugify (self.name)
+        
+        super(Product,self).save( *args ,**kwargs)
     
   
 
