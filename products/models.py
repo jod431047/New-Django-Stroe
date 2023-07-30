@@ -19,7 +19,7 @@ class Product(models.Model):
     sku = models.IntegerField(_('sku'))
     price = models.FloatField(_('price'))
     subtitle = models.TextField(_('subtitle'),max_length=600)
-    image = models.ImageField(_('image'),upload_to='Product')
+    image = models.ImageField(_('image'),upload_to='product')
     brand = models.ForeignKey('Brand' ,verbose_name=_('brand'), on_delete=models.CASCADE,related_name='product_brand')
     flag = models.CharField(_('flag'),max_length=20,choices=FLAG_TYPES)
     tags = TaggableManager()
@@ -30,8 +30,8 @@ class Product(models.Model):
 
 
 class ProductImages(models.Model):
-    Product = models.ForeignKey( Product,verbose_name=_('Product'),related_name='Product_images',on_delete=models.CASCADE)
-    image = models.ImageField(_('image'),upload_to='Product_images')
+    Product = models.ForeignKey( Product,verbose_name=_('product'),related_name='product_images',on_delete=models.CASCADE)
+    image = models.ImageField(_('image'),upload_to='product_images')
 
 
 class Brand(models.Model):
