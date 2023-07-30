@@ -10,6 +10,6 @@ class ProductList(generic.ListView):
     
 
 class ProductDetail(generic.DetailView):
-     model = Product
+    model = Product
 
 # Create your views here.
