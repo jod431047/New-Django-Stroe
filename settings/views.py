@@ -4,7 +4,7 @@ from products.models import Product ,Brand , Review
 
 def home(request):
     brands =Brand.objects.all()
-    sale_products = Product.objects.filter(flag='Sale')
+    sale_products = Product.objects.filter(flag='Sale')[:10]
     feature_products = Product.objects.filter(flag='Feature')
     new_products = Product.objects.filter(flag='New')
     reviews = Review.objects.all() 
