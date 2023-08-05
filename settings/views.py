@@ -5,9 +5,12 @@ from products.models import Product ,Brand , Review
 def home(request):
     brands =Brand.objects.all()
     sale_products = Product.objects.filter(flag='Sale')[:10]
-    feature_products = Product.objects.filter(flag='Feature')
-    new_products = Product.objects.filter(flag='New')
+    feature_products = Product.objects.filter(flag='Feature')[:6]
+    new_products = Product.objects.filter(flag='New')[:6]
     reviews = Review.objects.all() 
+    
+    
+    
     
     return render(request,'settings/home.html',{
         'brands':brands ,
@@ -15,4 +18,5 @@ def home(request):
         'feature_products':feature_products,
         'new_products':new_products,
         'reviews':reviews,
+        'brands_sliced' : brands[:6],
     })
