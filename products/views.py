@@ -101,18 +101,24 @@ class ProductDetail(generic.DetailView):
 class BrandList(generic.ListView):
     model = Brand
     paginate_by=50
+    def get_queryset(self):
+        object_list = Brand.objects.annotate(posts_count=Count('product_brand'))
+        return object_list
+    
+    
     
     
 class BrandDetail(generic.ListView):
     model = Product
-    template_name='product/brand_detail.html'
+    template_name = 'products/brand_detail.html'
     
     def get_queryset(self):
         brand = Brand.objects.get(slug=self.kwargs['slug'])
         queryset = Product.objects.filter(brand=brand)
         return queryset
-    def get_context_data(self,**kwargs):    
+    
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["brand"] = Brand.objects.get(slug=self.kwargs['slug'])
-       
+        context["brand"] = Brand.objects.filter(slug=self.kwargs['slug']).annotate(posts_count=Count('product_brand'))[0]
+        return context
 # Create your views here.

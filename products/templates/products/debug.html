@@ -8,17 +8,12 @@
 <body>
     <h1>Posts</h1>
 
-<ul>    
-    <li> {{data}} </li>
-
-
-    
+<ul>
     {% for post in data  %}
     
-        <li>{{post}}</li>
+        <li>{{post}} - {{post.price}} -{{post.brand}}</li>
     
     {% endfor %}
-   
 </ul>
 </body>
 </html>
